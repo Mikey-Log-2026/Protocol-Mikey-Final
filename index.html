@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Protocol-Mikey | Final</title>
     <style>
-        /* 背景を黒に固定し、文字色を指定 */
         body, html { 
             margin: 0; 
             padding: 0; 
@@ -17,7 +16,7 @@
             overflow: hidden; 
         }
 
-        /* 画像を最背面に配置し、z-indexを0以上に設定して黒背景の前に出します */
+        /* 画像の明るさを 0.6 -> 0.8 に上げ、不透明度も 0.8 に調整 */
         #bg-image { 
             position: fixed; 
             top: 0; 
@@ -25,25 +24,24 @@
             width: 100%; 
             height: 100%; 
             object-fit: cover; 
-            opacity: 0.6; /* 0から0.6に変更して最初から見えるようにします */
+            opacity: 0.8; 
             transition: opacity 1.5s ease-in-out; 
-            filter: brightness(0.6) contrast(1.2); 
+            filter: brightness(0.8) contrast(1.1); 
             z-index: 1; 
         }
 
-        /* グラデーションオーバーレイを画像の上に重ねます */
+        /* グラデーションを少し弱めて、画像が見えやすいように調整 */
         #overlay { 
             position: fixed; 
             top: 0; 
             left: 0; 
             width: 100%; 
             height: 100%; 
-            background: radial-gradient(circle, transparent 20%, #000 90%); 
+            background: radial-gradient(circle, transparent 30%, #000 95%); 
             z-index: 2; 
             pointer-events: none; 
         }
 
-        /* コンテンツを一番手前に配置 */
         #content { 
             position: relative; 
             z-index: 10; 
@@ -55,15 +53,38 @@
             box-sizing: border-box; 
         }
 
-        #terminal-text { font-size: 1.25rem; line-height: 1.8; min-height: 5em; margin-bottom: 30px; text-shadow: 0 0 10px #00e5ff; white-space: pre-wrap; }
-        button { background: rgba(0, 229, 255, 0.1); color: #00e5ff; border: 1px solid #00e5ff; padding: 15px 40px; font-size: 1rem; cursor: pointer; border-radius: 2px; transition: 0.3s; letter-spacing: 2px; }
-        button:hover { background: rgba(0, 229, 255, 0.3); box-shadow: 0 0 20px #00e5ff; }
-        #status-line { position: fixed; top: 20px; left: 20px; font-size: 0.8rem; opacity: 0.7; z-index: 11; }
+        #terminal-text { 
+            font-size: 1.25rem; 
+            line-height: 1.8; 
+            min-height: 5em; 
+            margin-bottom: 30px; 
+            text-shadow: 0 0 10px #00e5ff; 
+            white-space: pre-wrap;
+            /* 文字の可読性を上げるための背景（うっすら） */
+            background: rgba(0, 0, 0, 0.3);
+            padding: 15px;
+            border-radius: 4px;
+        }
+
+        button { 
+            background: rgba(0, 229, 255, 0.1); 
+            color: #00e5ff; 
+            border: 1px solid #00e5ff; 
+            padding: 15px 40px; 
+            font-size: 1rem; 
+            cursor: pointer; 
+            border-radius: 2px; 
+            transition: 0.3s; 
+            letter-spacing: 2px; 
+        }
+
+        button:hover { 
+            background: rgba(0, 229, 255, 0.3); 
+            box-shadow: 0 0 20px #00e5ff; 
+        }
     </style>
 </head>
 <body>
-    <div id="status-line">STATUS: OPERATIONAL | LOCATION: TOKIGAWA-SAITAMA</div>
-    
     <img id="bg-image" src="img_4844.jpg">
     
     <div id="overlay"></div>
@@ -77,7 +98,7 @@
 <script>
     let phase = 0;
     
-    // GitHubのファイルリストに基づき、大文字・小文字を完全に一致させています
+    // 動画で確認できた画像順序と拡張子を完全に一致させています
     const story = [
         { text: "深夜2時。ワークベンチに電流が走った。\n回路図が現実へと動き出す。", img: "img_4844.jpg" },
         { text: "システム同期中。\nロジックボードの深淵へとアクセスを開始。", img: "img_4845.PNG" },
@@ -119,13 +140,13 @@
 
         const img = document.getElementById('bg-image');
         
-        // フェードアウト
+        // 画像フェード切り替え
         img.style.opacity = 0;
         
         setTimeout(() => {
             img.src = data.img;
             img.onload = () => { 
-                img.style.opacity = 0.6; // 読み込み完了後に表示
+                img.style.opacity = 0.8; 
             };
         }, 300);
 
