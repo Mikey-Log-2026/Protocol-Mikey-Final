@@ -3,109 +3,75 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Protocol-Mikey | Final</title>
+    <title>Mikey Log | モノづくりの記録</title>
     <style>
         body, html { 
-            margin: 0; 
-            padding: 0; 
-            width: 100%; 
-            height: 100%; 
-            background: #000; 
-            color: #00e5ff; 
-            font-family: 'Courier New', monospace; 
+            margin: 0; padding: 0; width: 100%; height: 100%; 
+            background: #000; color: #fff; /* 文字を白にして読みやすく */
+            font-family: 'Helvetica Neue', Arial, sans-serif; 
             overflow: hidden; 
         }
 
-        /* 画像の明るさを 0.6 -> 0.8 に上げ、不透明度も 0.8 に調整 */
         #bg-image { 
-            position: fixed; 
-            top: 0; 
-            left: 0; 
-            width: 100%; 
-            height: 100%; 
-            object-fit: cover; 
-            opacity: 0.8; 
-            transition: opacity 1.5s ease-in-out; 
-            filter: brightness(0.8) contrast(1.1); 
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+            object-fit: cover; opacity: 0.8; 
+            transition: opacity 1.2s ease-in-out; 
+            filter: brightness(0.9) contrast(1.1); 
             z-index: 1; 
         }
 
-        /* グラデーションを少し弱めて、画像が見えやすいように調整 */
         #overlay { 
-            position: fixed; 
-            top: 0; 
-            left: 0; 
-            width: 100%; 
-            height: 100%; 
-            background: radial-gradient(circle, transparent 30%, #000 95%); 
-            z-index: 2; 
-            pointer-events: none; 
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+            background: linear-gradient(to bottom, transparent 50%, rgba(0,0,0,0.8) 100%); 
+            z-index: 2; pointer-events: none; 
         }
 
         #content { 
-            position: relative; 
-            z-index: 10; 
-            height: 100%; 
-            display: flex; 
-            flex-direction: column; 
-            justify-content: flex-end; 
-            padding: 40px; 
-            box-sizing: border-box; 
+            position: relative; z-index: 10; height: 100%; 
+            display: flex; flex-direction: column; justify-content: flex-end; 
+            padding: 30px; box-sizing: border-box; 
         }
 
         #terminal-text { 
-            font-size: 1.25rem; 
-            line-height: 1.8; 
-            min-height: 5em; 
-            margin-bottom: 30px; 
-            text-shadow: 0 0 10px #00e5ff; 
-            white-space: pre-wrap;
-            /* 文字の可読性を上げるための背景（うっすら） */
-            background: rgba(0, 0, 0, 0.3);
-            padding: 15px;
-            border-radius: 4px;
+            font-size: 1.4rem; /* 文字を少し大きく */
+            line-height: 1.6; min-height: 4em; margin-bottom: 20px; 
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0,0,0,1);
         }
 
         button { 
-            background: rgba(0, 229, 255, 0.1); 
-            color: #00e5ff; 
-            border: 1px solid #00e5ff; 
-            padding: 15px 40px; 
-            font-size: 1rem; 
-            cursor: pointer; 
-            border-radius: 2px; 
-            transition: 0.3s; 
-            letter-spacing: 2px; 
+            background: #00e5ff; color: #000; /* ボタンを目立たせる */
+            border: none; padding: 12px 30px; font-size: 1.1rem; 
+            cursor: pointer; border-radius: 50px; /* 丸みをつけて親しみやすく */
+            font-weight: bold; transition: 0.3s; 
         }
 
-        button:hover { 
-            background: rgba(0, 229, 255, 0.3); 
-            box-shadow: 0 0 20px #00e5ff; 
-        }
+        button:hover { transform: scale(1.05); background: #fff; }
     </style>
 </head>
 <body>
+    
     <img id="bg-image" src="img_4844.jpg">
     
     <div id="overlay"></div>
     <div id="content">
-        <div id="terminal-text">PROTOCOL "MIKEY" FINAL STANDBY...</div>
+        <div id="terminal-text">「Mikey Log」へようこそ。ボタンを押して物語をスタート！</div>
         <div class="btn-container">
-            <button id="main-btn" onclick="runProtocol()">INITIALIZE</button>
+            <button id="main-btn" onclick="runProtocol()">物語を見る</button>
         </div>
     </div>
 
 <script>
     let phase = 0;
     
-    // 動画で確認できた画像順序と拡張子を完全に一致させています
+    // 内容を「誰でもわかる言葉」に変更しました
     const story = [
-        { text: "深夜2時。ワークベンチに電流が走った。\n回路図が現実へと動き出す。", img: "img_4844.jpg" },
-        { text: "システム同期中。\nロジックボードの深淵へとアクセスを開始。", img: "img_4845.PNG" },
-        { text: "警告。未確認の信号を検知。\n物理層とデータ層の境界が曖昧になっています。", img: "img_4846.jpg" },
-        { text: "ログ解析... \n過去の設計データと現在の波形が重なり合う。", img: "img_4847.jpg" },
-        { text: "特異点到達。\n現実を再定義するためのソースコードが書き換えられました。", img: "img_4856.PNG" },
-        { text: "プロトコル完了。\n完璧な世界よりも、未完成の自由を。ログアウト。", img: "img_4857.PNG" }
+        { text: "静かな深夜。自分だけの時間が始まります。\n机の上には、これから形になる部品たちが並んでいます。", img: "img_4844.jpg" },
+        { text: "少しずつ回路をつないでいきます。\nバラバラだったパーツが、一つの命になろうとしています。", img: "img_4845.PNG" },
+        { text: "「あれ、動かないな…？」\n失敗も楽しみの一つ。原因を探る時間が、一番ワクワクします。", img: "img_4846.jpg" },
+        { text: "ノートを見返して、ヒントを見つけました。\n一歩ずつ、完成へと近づいていく手応えがあります。", img: "img_4847.jpg" },
+        { text: "ついに電気が通りました！\n想像していたものが目の前で動き出す、最高の瞬間です。", img: "img_4856.PNG" },
+        { text: "モノづくりに終わりはありません。\n次はどんな魔法を作ろうか。また次のログでお会いしましょう。", img: "img_4857.PNG" }
     ];
 
     function speakText(text) {
@@ -113,16 +79,16 @@
         window.speechSynthesis.cancel();
         const uttr = new SpeechSynthesisUtterance(text);
         uttr.lang = 'ja-JP';
-        uttr.rate = 0.9;
+        uttr.rate = 1.0;
         window.speechSynthesis.speak(uttr);
     }
 
     function typeWriter(text, i, fnCallback) {
         if (i < text.length) {
-            document.getElementById('terminal-text').innerHTML = "> " + text.substring(0, i+1).replace(/\n/g, "<br>> ");
-            setTimeout(() => typeWriter(text, i + 1, fnCallback), 50);
+            document.getElementById('terminal-text').innerHTML = text.substring(0, i+1).replace(/\n/g, "<br>");
+            setTimeout(() => typeWriter(text, i + 1, fnCallback), 60);
         } else if (fnCallback) {
-            setTimeout(fnCallback, 1500);
+            setTimeout(fnCallback, 2000);
         }
     }
 
@@ -139,20 +105,16 @@
         speakText(data.text.replace(/\n/g, ""));
 
         const img = document.getElementById('bg-image');
-        
-        // 画像フェード切り替え
         img.style.opacity = 0;
         
         setTimeout(() => {
             img.src = data.img;
-            img.onload = () => { 
-                img.style.opacity = 0.8; 
-            };
+            img.onload = () => { img.style.opacity = 0.8; };
         }, 300);
 
         typeWriter(data.text, 0, () => {
             btn.style.visibility = 'visible';
-            btn.innerText = (phase === story.length - 1) ? "SYSTEM REBOOT" : "NEXT LOG";
+            btn.innerText = (phase === story.length - 1) ? "もう一度見る" : "次へ進む";
             phase++;
         });
     }
