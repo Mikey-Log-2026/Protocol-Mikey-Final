@@ -7,23 +7,26 @@
     <style>
         body, html { 
             margin: 0; padding: 0; width: 100%; height: 100%; 
-            background: #fff; /* 背景を明るい色に */
-            color: #4a4a4a; /* 文字色を落ち着いたグレーに */
-            font-family: 'HiraMaruProN-W4', 'ヒラギノ丸ゴ ProN W4', Meiryo, sans-serif; /* 丸いフォントで優しく */
+            background: #000; /* 背景を黒にして画像を引き立てます */
+            color: #4a4a4a; 
+            font-family: 'HiraMaruProN-W4', 'ヒラギノ丸ゴ ProN W4', Meiryo, sans-serif; 
             overflow: hidden; 
         }
 
+        /* 画像をハッキリくっきりさせました！ */
         #bg-image { 
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
-            object-fit: cover; opacity: 0.7; /* 背景は少し明るく控えめに */
-            transition: opacity 1.5s ease-in-out; 
-            filter: brightness(1.0) contrast(1.0); /* フィルターをリセット */
+            object-fit: cover; 
+            opacity: 1.0; /* 透明度なし！ハッキリ見えます */
+            transition: opacity 1.0s ease-in-out; 
+            filter: brightness(1.0) contrast(1.1); /* 明るさ全開 */
             z-index: 1; 
         }
 
+        /* 文字を見やすくするための薄いベール */
         #overlay { 
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
-            background: linear-gradient(to bottom, transparent 30%, rgba(255,255,255,0.7) 100%); 
+            background: linear-gradient(to bottom, transparent 20%, rgba(255,255,255,0.4) 100%); 
             z-index: 2; pointer-events: none; 
         }
 
@@ -33,30 +36,32 @@
             padding: 30px; box-sizing: border-box; 
         }
 
+        /* メッセージボックス */
         #terminal-text { 
-            font-size: 1.5rem; line-height: 1.7; min-height: 5em; margin-bottom: 25px; 
-            color: #6a0dad; /* ちょっと可愛いパープルに */
-            text-shadow: 1px 1px 3px rgba(0,0,0,0.2); /* 優しめの影 */
+            font-size: 1.4rem; line-height: 1.7; min-height: 5em; margin-bottom: 25px; 
+            color: #5d2a8e; /* 読みやすい濃いめのパープル */
             white-space: pre-wrap;
-            background: rgba(255, 255, 255, 0.8); /* 文字背景は明るく */
+            background: rgba(255, 255, 255, 0.9); /* ボックスは少し透かして優しく */
             padding: 20px;
-            border-radius: 15px; /* 角を丸く */
-            border: 2px dashed #ff99cc; /* ドットの可愛い枠線 */
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border-radius: 20px; 
+            border: 3px dashed #ff85b9; /* ピンクの点線で可愛く */
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            font-weight: bold;
         }
 
+        /* ボタンをハッキリ濃いピンクに！ */
         button { 
-            background: #ff69b4; /* 可愛いピンク */
+            background: #ff1493; /* 濃いピンクで存在感アップ */
             color: #fff; 
-            border: none; padding: 15px 35px; font-size: 1.2rem; 
-            cursor: pointer; border-radius: 30px; /* 超丸く */
-            font-weight: bold; transition: 0.3s; letter-spacing: 1px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            border: none; padding: 18px 40px; font-size: 1.3rem; 
+            cursor: pointer; border-radius: 50px; 
+            font-weight: bold; transition: 0.3s; letter-spacing: 2px;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.3);
         }
 
         button:hover { 
-            transform: translateY(-3px) scale(1.02); /* ふわっと浮く感じ */
-            background: #ffb4dd; 
+            transform: scale(1.05); 
+            background: #ff69b4; 
         }
     </style>
 </head>
@@ -66,23 +71,22 @@
     
     <div id="overlay"></div>
     <div id="content">
-        <div id="terminal-text">MiKey Logへようこそ！ 私のへっぽこモノづくり日記、一緒に覗いていきませんか？</div>
+        <div id="terminal-text">MiKey Logへようこそ！<br>私のワクワクなモノづくり、のぞいていってくださいね♪</div>
         <div class="btn-container">
-            <button id="main-btn" onclick="runProtocol()">物語を始める！</button>
+            <button id="main-btn" onclick="runProtocol()">物語をはじめる！</button>
         </div>
     </div>
 
 <script>
     let phase = 0;
     
-    // 笑えて心が豊かになる、優しい言葉にしました
     const story = [
-        { text: "ひっそり夜中。私だけの秘密の時間。\n今日の相棒は、このキラキラ部品たち！", img: "img_4844.jpg" },
-        { text: "ちっちゃな線を、ちまちま繋いで…\n「これって、未来に繋がってる？」って想像すると、ワクワクが止まらない！", img: "img_4845.PNG" },
-        { text: "あちゃー！また動かない！\nでも大丈夫、失敗は「成功への可愛い回り道」だもんね！", img: "img_4846.jpg" },
-        { text: "「あれ？どこに書いたっけ？」\n過去の私からのメッセージ（設計図）を必死で解読中！", img: "img_4847.jpg" },
-        { text: "やったー！ピカッと光ったよ！\n自分の手で動かすって、なんだか心がポカポカするね。", img: "img_4856.PNG" },
-        { text: "次の「ひらめき」は何かな？\nモノづくりって、毎日が新しい発見の連続！また一緒に遊ぼうね！", img: "img_4857.PNG" }
+        { text: "しずかな夜。私だけのひみつ時間。\nきらきらの部品たちに囲まれて、今日は何を作ろうかな？", img: "img_4844.jpg" },
+        { text: "一本ずつ、心をこめて線をむすびます。\n小さなパーツが「命」になっていく、この瞬間が大好き！", img: "img_4845.PNG" },
+        { text: "あらら！うまくいかないぞ？\nでも大丈夫。失敗は、新しい発見へのプレゼントなんだから！", img: "img_4846.jpg" },
+        { text: "「あれれ、ヒントはどこかな～？」\n昔の私が書いたメモを、宝探しみたいに読み解きます。", img: "img_4847.jpg" },
+        { text: "やったー！ピカッと光った！\n自分の手で動かせたときの感動で、心がぽかぽかになります。", img: "img_4856.PNG" },
+        { text: "次はどんな「ふしぎ」を作ろうかな？\nモノづくりって、本当に楽しい！また遊びに来てね！", img: "img_4857.PNG" }
     ];
 
     function speakText(text) {
@@ -96,11 +100,10 @@
 
     function typeWriter(text, i, fnCallback) {
         if (i < text.length) {
-            // > を削除して、セリフのように自然な表示に
             document.getElementById('terminal-text').innerHTML = text.substring(0, i+1).replace(/\n/g, "<br>");
-            setTimeout(() => typeWriter(text, i + 1, fnCallback), 70); // タイピング速度を少しゆっくりに
+            setTimeout(() => typeWriter(text, i + 1, fnCallback), 60);
         } else if (fnCallback) {
-            setTimeout(fnCallback, 2500); // 次のセリフまでの間隔を少し長めに
+            setTimeout(fnCallback, 2000);
         }
     }
 
@@ -121,12 +124,12 @@
         
         setTimeout(() => {
             img.src = data.img;
-            img.onload = () => { img.style.opacity = 0.7; };
+            img.onload = () => { img.style.opacity = 1.0; };
         }, 300);
 
         typeWriter(data.text, 0, () => {
             btn.style.visibility = 'visible';
-            btn.innerText = (phase === story.length - 1) ? "もう一度遊ぶ！" : "次の冒険へ！";
+            btn.innerText = (phase === story.length - 1) ? "もう一度あそぶ！" : "次のページへ！";
             phase++;
         });
     }
