@@ -3,49 +3,61 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mikey Log | Behind the Scenes</title>
+    <title>MiKey Log | ふわふわモノづくり日記</title>
     <style>
         body, html { 
             margin: 0; padding: 0; width: 100%; height: 100%; 
-            background: #000; color: #00e5ff; 
-            font-family: 'Hiragino Kaku Gothic ProN', sans-serif; 
+            background: #fff; /* 背景を明るい色に */
+            color: #4a4a4a; /* 文字色を落ち着いたグレーに */
+            font-family: 'HiraMaruProN-W4', 'ヒラギノ丸ゴ ProN W4', Meiryo, sans-serif; /* 丸いフォントで優しく */
             overflow: hidden; 
         }
 
         #bg-image { 
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
-            object-fit: cover; opacity: 0.85; 
+            object-fit: cover; opacity: 0.7; /* 背景は少し明るく控えめに */
             transition: opacity 1.5s ease-in-out; 
-            filter: brightness(0.9) contrast(1.1); 
+            filter: brightness(1.0) contrast(1.0); /* フィルターをリセット */
             z-index: 1; 
         }
 
         #overlay { 
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
-            background: linear-gradient(to bottom, transparent 40%, rgba(0,0,0,0.9) 100%); 
+            background: linear-gradient(to bottom, transparent 30%, rgba(255,255,255,0.7) 100%); 
             z-index: 2; pointer-events: none; 
         }
 
         #content { 
             position: relative; z-index: 10; height: 100%; 
             display: flex; flex-direction: column; justify-content: flex-end; 
-            padding: 40px; box-sizing: border-box; 
+            padding: 30px; box-sizing: border-box; 
         }
 
         #terminal-text { 
-            font-size: 1.3rem; line-height: 1.7; min-height: 5em; margin-bottom: 30px; 
-            text-shadow: 0 0 10px #00e5ff; white-space: pre-wrap;
-            border-left: 4px solid #00e5ff; padding-left: 20px;
+            font-size: 1.5rem; line-height: 1.7; min-height: 5em; margin-bottom: 25px; 
+            color: #6a0dad; /* ちょっと可愛いパープルに */
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.2); /* 優しめの影 */
+            white-space: pre-wrap;
+            background: rgba(255, 255, 255, 0.8); /* 文字背景は明るく */
+            padding: 20px;
+            border-radius: 15px; /* 角を丸く */
+            border: 2px dashed #ff99cc; /* ドットの可愛い枠線 */
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
         }
 
         button { 
-            background: transparent; color: #00e5ff; 
-            border: 2px solid #00e5ff; padding: 15px 40px; font-size: 1rem; 
-            cursor: pointer; border-radius: 4px; 
+            background: #ff69b4; /* 可愛いピンク */
+            color: #fff; 
+            border: none; padding: 15px 35px; font-size: 1.2rem; 
+            cursor: pointer; border-radius: 30px; /* 超丸く */
             font-weight: bold; transition: 0.3s; letter-spacing: 1px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
         }
 
-        button:hover { background: rgba(0, 229, 255, 0.2); box-shadow: 0 0 20px #00e5ff; }
+        button:hover { 
+            transform: translateY(-3px) scale(1.02); /* ふわっと浮く感じ */
+            background: #ffb4dd; 
+        }
     </style>
 </head>
 <body>
@@ -54,23 +66,23 @@
     
     <div id="overlay"></div>
     <div id="content">
-        <div id="terminal-text">Mikey's Workshop... ログを開始します。</div>
+        <div id="terminal-text">MiKey Logへようこそ！ 私のへっぽこモノづくり日記、一緒に覗いていきませんか？</div>
         <div class="btn-container">
-            <button id="main-btn" onclick="runProtocol()">のぞいてみる</button>
+            <button id="main-btn" onclick="runProtocol()">物語を始める！</button>
         </div>
     </div>
 
 <script>
     let phase = 0;
     
-    // 絵に合わせて「作者のつぶやき」風の内容にしました
+    // 笑えて心が豊かになる、優しい言葉にしました
     const story = [
-        { text: "今夜の相棒はこれ。まずは電源を入れて、\n一日の始まりとモノづくりの始まりを重ねます。", img: "img_4844.jpg" },
-        { text: "基板の上に、小さな部品を一つずつ。 \nここが、想像を形にするための一番大事な場所です。", img: "img_4845.PNG" },
-        { text: "指先に集中して。複雑な回路を組んでいくと、\nパズルが解けていくような楽しさがあります。", img: "img_4846.jpg" },
-        { text: "設計図（ログ）をじっくり読み解く。 \n失敗しても、この紙の中に必ずヒントが隠れています。", img: "img_4847.jpg" },
-        { text: "ディスプレイが光り、システムが動き出しました。\nこの瞬間を味わうために、モノづくりをやめられません。", img: "img_4856.PNG" },
-        { text: "さて、次はどんな「面白いこと」をしましょうか。\nMikey Log、また更新します。お楽しみに！", img: "img_4857.PNG" }
+        { text: "ひっそり夜中。私だけの秘密の時間。\n今日の相棒は、このキラキラ部品たち！", img: "img_4844.jpg" },
+        { text: "ちっちゃな線を、ちまちま繋いで…\n「これって、未来に繋がってる？」って想像すると、ワクワクが止まらない！", img: "img_4845.PNG" },
+        { text: "あちゃー！また動かない！\nでも大丈夫、失敗は「成功への可愛い回り道」だもんね！", img: "img_4846.jpg" },
+        { text: "「あれ？どこに書いたっけ？」\n過去の私からのメッセージ（設計図）を必死で解読中！", img: "img_4847.jpg" },
+        { text: "やったー！ピカッと光ったよ！\n自分の手で動かすって、なんだか心がポカポカするね。", img: "img_4856.PNG" },
+        { text: "次の「ひらめき」は何かな？\nモノづくりって、毎日が新しい発見の連続！また一緒に遊ぼうね！", img: "img_4857.PNG" }
     ];
 
     function speakText(text) {
@@ -84,10 +96,11 @@
 
     function typeWriter(text, i, fnCallback) {
         if (i < text.length) {
-            document.getElementById('terminal-text').innerHTML = "> " + text.substring(0, i+1).replace(/\n/g, "<br>> ");
-            setTimeout(() => typeWriter(text, i + 1, fnCallback), 50);
+            // > を削除して、セリフのように自然な表示に
+            document.getElementById('terminal-text').innerHTML = text.substring(0, i+1).replace(/\n/g, "<br>");
+            setTimeout(() => typeWriter(text, i + 1, fnCallback), 70); // タイピング速度を少しゆっくりに
         } else if (fnCallback) {
-            setTimeout(fnCallback, 2000);
+            setTimeout(fnCallback, 2500); // 次のセリフまでの間隔を少し長めに
         }
     }
 
@@ -108,12 +121,12 @@
         
         setTimeout(() => {
             img.src = data.img;
-            img.onload = () => { img.style.opacity = 0.85; };
+            img.onload = () => { img.style.opacity = 0.7; };
         }, 300);
 
         typeWriter(data.text, 0, () => {
             btn.style.visibility = 'visible';
-            btn.innerText = (phase === story.length - 1) ? "最初から見る" : "次へ進む";
+            btn.innerText = (phase === story.length - 1) ? "もう一度遊ぶ！" : "次の冒険へ！";
             phase++;
         });
     }
