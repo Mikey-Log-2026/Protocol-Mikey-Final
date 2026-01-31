@@ -3,50 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mikey Log | モノづくりの記録</title>
+    <title>Mikey Log | Behind the Scenes</title>
     <style>
         body, html { 
             margin: 0; padding: 0; width: 100%; height: 100%; 
-            background: #000; color: #fff; /* 文字を白にして読みやすく */
-            font-family: 'Helvetica Neue', Arial, sans-serif; 
+            background: #000; color: #00e5ff; 
+            font-family: 'Hiragino Kaku Gothic ProN', sans-serif; 
             overflow: hidden; 
         }
 
         #bg-image { 
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
-            object-fit: cover; opacity: 0.8; 
-            transition: opacity 1.2s ease-in-out; 
+            object-fit: cover; opacity: 0.85; 
+            transition: opacity 1.5s ease-in-out; 
             filter: brightness(0.9) contrast(1.1); 
             z-index: 1; 
         }
 
         #overlay { 
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
-            background: linear-gradient(to bottom, transparent 50%, rgba(0,0,0,0.8) 100%); 
+            background: linear-gradient(to bottom, transparent 40%, rgba(0,0,0,0.9) 100%); 
             z-index: 2; pointer-events: none; 
         }
 
         #content { 
             position: relative; z-index: 10; height: 100%; 
             display: flex; flex-direction: column; justify-content: flex-end; 
-            padding: 30px; box-sizing: border-box; 
+            padding: 40px; box-sizing: border-box; 
         }
 
         #terminal-text { 
-            font-size: 1.4rem; /* 文字を少し大きく */
-            line-height: 1.6; min-height: 4em; margin-bottom: 20px; 
-            font-weight: bold;
-            text-shadow: 2px 2px 4px rgba(0,0,0,1);
+            font-size: 1.3rem; line-height: 1.7; min-height: 5em; margin-bottom: 30px; 
+            text-shadow: 0 0 10px #00e5ff; white-space: pre-wrap;
+            border-left: 4px solid #00e5ff; padding-left: 20px;
         }
 
         button { 
-            background: #00e5ff; color: #000; /* ボタンを目立たせる */
-            border: none; padding: 12px 30px; font-size: 1.1rem; 
-            cursor: pointer; border-radius: 50px; /* 丸みをつけて親しみやすく */
-            font-weight: bold; transition: 0.3s; 
+            background: transparent; color: #00e5ff; 
+            border: 2px solid #00e5ff; padding: 15px 40px; font-size: 1rem; 
+            cursor: pointer; border-radius: 4px; 
+            font-weight: bold; transition: 0.3s; letter-spacing: 1px;
         }
 
-        button:hover { transform: scale(1.05); background: #fff; }
+        button:hover { background: rgba(0, 229, 255, 0.2); box-shadow: 0 0 20px #00e5ff; }
     </style>
 </head>
 <body>
@@ -55,23 +54,23 @@
     
     <div id="overlay"></div>
     <div id="content">
-        <div id="terminal-text">「Mikey Log」へようこそ。ボタンを押して物語をスタート！</div>
+        <div id="terminal-text">Mikey's Workshop... ログを開始します。</div>
         <div class="btn-container">
-            <button id="main-btn" onclick="runProtocol()">物語を見る</button>
+            <button id="main-btn" onclick="runProtocol()">のぞいてみる</button>
         </div>
     </div>
 
 <script>
     let phase = 0;
     
-    // 内容を「誰でもわかる言葉」に変更しました
+    // 絵に合わせて「作者のつぶやき」風の内容にしました
     const story = [
-        { text: "静かな深夜。自分だけの時間が始まります。\n机の上には、これから形になる部品たちが並んでいます。", img: "img_4844.jpg" },
-        { text: "少しずつ回路をつないでいきます。\nバラバラだったパーツが、一つの命になろうとしています。", img: "img_4845.PNG" },
-        { text: "「あれ、動かないな…？」\n失敗も楽しみの一つ。原因を探る時間が、一番ワクワクします。", img: "img_4846.jpg" },
-        { text: "ノートを見返して、ヒントを見つけました。\n一歩ずつ、完成へと近づいていく手応えがあります。", img: "img_4847.jpg" },
-        { text: "ついに電気が通りました！\n想像していたものが目の前で動き出す、最高の瞬間です。", img: "img_4856.PNG" },
-        { text: "モノづくりに終わりはありません。\n次はどんな魔法を作ろうか。また次のログでお会いしましょう。", img: "img_4857.PNG" }
+        { text: "今夜の相棒はこれ。まずは電源を入れて、\n一日の始まりとモノづくりの始まりを重ねます。", img: "img_4844.jpg" },
+        { text: "基板の上に、小さな部品を一つずつ。 \nここが、想像を形にするための一番大事な場所です。", img: "img_4845.PNG" },
+        { text: "指先に集中して。複雑な回路を組んでいくと、\nパズルが解けていくような楽しさがあります。", img: "img_4846.jpg" },
+        { text: "設計図（ログ）をじっくり読み解く。 \n失敗しても、この紙の中に必ずヒントが隠れています。", img: "img_4847.jpg" },
+        { text: "ディスプレイが光り、システムが動き出しました。\nこの瞬間を味わうために、モノづくりをやめられません。", img: "img_4856.PNG" },
+        { text: "さて、次はどんな「面白いこと」をしましょうか。\nMikey Log、また更新します。お楽しみに！", img: "img_4857.PNG" }
     ];
 
     function speakText(text) {
@@ -85,8 +84,8 @@
 
     function typeWriter(text, i, fnCallback) {
         if (i < text.length) {
-            document.getElementById('terminal-text').innerHTML = text.substring(0, i+1).replace(/\n/g, "<br>");
-            setTimeout(() => typeWriter(text, i + 1, fnCallback), 60);
+            document.getElementById('terminal-text').innerHTML = "> " + text.substring(0, i+1).replace(/\n/g, "<br>> ");
+            setTimeout(() => typeWriter(text, i + 1, fnCallback), 50);
         } else if (fnCallback) {
             setTimeout(fnCallback, 2000);
         }
@@ -109,12 +108,12 @@
         
         setTimeout(() => {
             img.src = data.img;
-            img.onload = () => { img.style.opacity = 0.8; };
+            img.onload = () => { img.style.opacity = 0.85; };
         }, 300);
 
         typeWriter(data.text, 0, () => {
             btn.style.visibility = 'visible';
-            btn.innerText = (phase === story.length - 1) ? "もう一度見る" : "次へ進む";
+            btn.innerText = (phase === story.length - 1) ? "最初から見る" : "次へ進む";
             phase++;
         });
     }
