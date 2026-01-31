@@ -3,10 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Protocol-Mikey | Live</title>
+    <title>Protocol-Mikey | Final</title>
     <style>
         body, html { margin: 0; padding: 0; width: 100%; height: 100%; background: #000; color: #00e5ff; font-family: 'Courier New', monospace; overflow: hidden; }
-        /* 背景画像の設定：images/ を消して直接ファイル名を参照 */
         #bg-image { position: fixed; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 1.5s ease-in-out; filter: brightness(0.4) contrast(1.2); z-index: -1; }
         #overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle, transparent 20%, #000 90%); z-index: 0; }
         #content { position: relative; z-index: 10; height: 100%; display: flex; flex-direction: column; justify-content: flex-end; padding: 40px; box-sizing: border-box; }
@@ -22,7 +21,7 @@
     <img id="bg-image" src="IMG_4844.jpeg">
     <div id="overlay"></div>
     <div id="content">
-        <div id="terminal-text">PROTOCOL "MIKEY" STANDBY...</div>
+        <div id="terminal-text">PROTOCOL "MIKEY" FINAL STANDBY...</div>
         <div class="btn-container">
             <button id="main-btn" onclick="runProtocol()">INITIALIZE</button>
         </div>
@@ -30,7 +29,7 @@
 
 <script>
     let phase = 0;
-    // ストーリーデータ：画像パスから images/ を完全に削除
+    // 画像はすべて index.html と同じ階層にあるため、ファイル名のみ指定
     const story = [
         { text: "深夜2時。ワークベンチに電流が走った。\n回路図が現実へと動き出す。", img: "IMG_4844.jpeg" },
         { text: "システム同期中。\nロジックボードの深淵へとアクセスを開始。", img: "IMG_4845.png" },
@@ -73,7 +72,6 @@
         const img = document.getElementById('bg-image');
         img.style.opacity = 0;
         
-        // 画像読み込み完了時にふわっと表示
         img.src = data.img;
         img.onload = () => { 
             img.style.opacity = 0.5;
